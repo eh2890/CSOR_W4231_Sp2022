@@ -1,0 +1,98 @@
+\documentclass{../homework}
+
+\title{4231 Homework 1}
+\author{Eumin Hong (eh2890)}
+\date{\today}
+
+\begin{document}
+\maketitle
+
+\lhead{4231 Homework 1}
+\rhead{Eumin Hong (eh2890)}
+
+\tcbset{colback=blue!5, colframe=blue!75!black}
+
+\section*{Problem 1}
+\begin{tcolorbox}
+    Exercise 3.1-1 (Page 52) and 3-1 (a) and (d) (Page 61) of the textbook. For Exercise 3.1-1, you can assume both functions to take nonnegative values.
+\end{tcolorbox}
+
+\subsection*{3.1-1}
+Let $f(n)$ and $g(n)$ be asymptotically nonnegative functions. Using the basic definition of $\Theta $-notation, prove that $\max{ \left(f(n), g(n)\right)} = \Theta \left(f(n) + g(n)\right)$.
+
+\subsection*{3-1}
+Let
+$$p(n) = \sum_{i=0}^{d} a_in^i,$$
+where $a_d > 0$, be a degree-$d$ polynomial in $n$, and let $k$ be a constant. Use the definitions of asymptotic notations to prove the following properties.
+\begin{itemize}
+    \item[\textbf{\textit{a.}}] If $k \geq d$, then $p(n) = O\left(n^k\right)$.
+    \item[\textbf{\textit{d.}}] If $k > d$, then $p(n) = o\left(n^k\right)$.
+\end{itemize}
+
+\newpage
+\section*{Problem 2}
+\begin{tcolorbox}
+    Problem 2-3 (Page 41). Skip (b).
+\end{tcolorbox}
+
+\subsection*{2-3}
+The following code fragment implements Horner’s rule for evaluating a polynomial
+\begin{align*}
+    P(x) &= \sum_{k=0}^{n} a_kx^k\\
+    &= a_0 + x(a_1 + x(a_2 + \cdots + x(a_{n-1} + xa_n) \cdots )),
+\end{align*}
+given the coefficients $a_0, a_1, \dots, a_n$ and a value for $x$:
+\begin{algorithmic}[1]
+\State $y = 0$
+\FOR{$i = n \dots 0$}
+    \State $y = a_i + x\cdot y$
+\ENDFOR
+\end{algorithmic}
+
+\begin{itemize}
+    \item[\textbf{\textit{a.}}] In terms of $\Theta $-notation, what is the running time of this code fragment for Horner’s rule?
+    \item[\textbf{\textit{c.}}] Consider the following loop invariant:
+    \begin{adjustwidth}{2em}{0pt}
+        At the start of each iteration of the for loop of lines 2–3,
+    \end{adjustwidth}
+    \begin{gather*}
+        y = \sum_{k=0}^{n-(i+1)} a_{k+i+1}x^k.
+    \end{gather*}
+    Interpret a summation with no terms as equaling $0$. Following the structure of the loop invariant proof presented in this chapter, use this loop invariant to show that, at termination, $y = \sum_{k=0}^{n} a_kx^k$.
+    \item[\textbf{\textit{d.}}] Conclude by arguing that the given code fragment correctly evaluates a polynomial characterized by the coefficients $a_0, a_1, \dots, a_n$.
+\end{itemize}
+
+\newpage
+\section*{Problem 3}
+\begin{tcolorbox}
+    (Wait for class on Jan 26) Exercise 2.3-7 (Page 39).
+\end{tcolorbox}
+
+\subsection*{2.3-7}
+Describe a $\Theta \left(n \lg{n}\right)$-time algorithm that, given a set $S$ of $n$ integers and another integer $x$, determines whether or not there exist two elements in $S$ whose sum is exactly $x$.
+
+\newpage
+\section*{Problem 4}
+\begin{tcolorbox}
+    (Wait for class on Jan 26) Exercise 4.4-4 (page 93). Use the substitution method to prove your upper bound.
+\end{tcolorbox}
+
+\section*{4.4-4}
+Use a recursion tree to determine a good asymptotic upper bound on the recurrence $T(n) = 2T(n-1) + 1$. Use the substitution method to verify your answer.
+
+\newpage
+\section*{Problem 5}
+\begin{tcolorbox}
+    (Wait for class on Jan 26) Problem 4-3 (a), (c) and (j) (Page 108): Use Master theorem on (a) and (c). For (j) it suffices to draw its recursion tree and conclude with your best guess.
+\end{tcolorbox}
+
+\section*{4-3}
+Give asymptotic upper and lower bounds for $T(n)$ in each of the following recurrences. Assume that $T(n)$ is constant for sufficiently small $n$. Make your bounds as tight as possible, and justify your answers.
+
+\begin{itemize}
+    \item[\textbf{\textit{a.}}] $T(n) = 4T(n/3) + n \lg{n}$.
+    \item[\textbf{\textit{c.}}] $T(n) = 4T(n/2) + n^2 \sqrt{n}$.
+    \item[\textbf{\textit{j.}}] $T(n) = \sqrt{n}T(\sqrt{n}) + n$.
+\end{itemize}
+
+\end{document}
