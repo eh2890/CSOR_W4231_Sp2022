@@ -1,0 +1,91 @@
+\documentclass{class}
+
+\title{4231 Homework 2}
+\author{Eumin Hong (eh2890)}
+\date{\today}
+
+\begin{document}
+\maketitle
+
+\lhead{4231 Homework 2}
+\rhead{Eumin Hong (eh2890)}
+
+\tcbset{colback=blue!5, colframe=blue!75!black}
+
+\section*{Problem 1}
+\begin{tcolorbox}
+    Exercise 5.4-6 (Page 142): Indicator random variables. (It is not part of the homework but if you like coin flipping, Exercise 5.1-3 is definitely worth trying.)
+\end{tcolorbox}
+
+\subsection*{5.4-6}
+Suppose that $n$ balls are tossed into $n$ bins, where each toss is independent and the ball is equally likely to end up in any bin. What is the expected number of empty bins? What is the expected number of bins with exactly one ball?
+
+\newpage
+\section*{Problem 2}
+\begin{tcolorbox}
+    Problem 7-3 (b), (c), (d) and (e) (Page 187): Alternative quicksort analysis. (Again, it is not part of the homework but if you are interested in how we deal with equal element values, go through Problem 7-2.)
+\end{tcolorbox}
+
+\subsection*{7-3}
+An alternative analysis of the running time of randomized quicksort focuses on the expected running time of each individual recursive call to \textsc{RANDOMIZED-QUICKSORT}, rather than on the number of comparisons performed.
+\begin{itemize}
+    \item[\textbf{\textit{b.}}] Let $T(n)$ be a random variable denoting the running time of quicksort on an array of size $n$. Argue that
+    \begin{equation}\label{eq:1}
+        \E[T(n)] = \E\left[\sum_{q=1}^{n} X_q (T(q-1) + T(n-q) + \Theta(n))\right]
+    \end{equation}
+    \item[\textbf{\textit{c.}}] Show that we can rewrite equation \ref{eq:1} as
+    \begin{equation}\label{eq:2}
+        \E[T(n)] = \frac{2}{n} \sum_{q=2}^{n-1} \E[T(q)] + \Theta(n).
+    \end{equation}
+    \item[\textbf{\textit{d.}}] Show that
+    \begin{equation}\label{eq:3}
+        \sum_{k=2}^{n-1} k \lg{k} \leq \frac{1}{2}n^2\lg{n} - \frac{1}{8}n^2
+    \end{equation}
+    (\textit{Hint}: Split the summation into two parts, one for $k = 2, 3, \dots, \lceil n / 2 \rceil - 1$ and one for $k = \lceil n / 2 \rceil, \dots, n - 1$.)
+    \item[\textbf{\textit{e}}] Using the bound from equation \ref{eq:3}, show that the recurrence in equation \ref{eq:2} has the solution $\E[T(n)] = \Theta(n\lg{n})$. (\textit{Hint}: Show, by substitution, that $\E[T(n)] \leq an\lg{n}$ for sufficiently large $n$ and for some positive constant $a$.)
+\end{itemize}
+
+
+\newpage
+\section*{Problem 3}
+\begin{tcolorbox}
+    Exercise 8.1-1 on page 193 and Problem 8-4(b) on page 207.
+\end{tcolorbox}
+\subsection*{8.1-1}
+What is the smallest possible depth of a leaf in a decision tree for a comparison sort?
+
+\subsection*{8-4}
+Suppose that you are given $n$ red and $n$ blue water jugs, all of different shapes and sizes. All red jugs hold different amounts of water, as do the blue ones. Moreover, for every red jug, there is a blue jug that holds the same amount of water, and vice versa.
+
+Your task is to find a grouping of the jugs into pairs of red and blue jugs that hold the same amount of water. To do so, you may perform the following operation: pick a pair of jugs in which one is red and one is blue, fill the red jug with water, and then pour the water into the blue jug. This operation will tell you whether the red or the blue jug can hold more water, or that they have the same volume. Assume that such a comparison takes one time unit. Your goal is to find an algorithm that makes a minimum number of comparisons to determine the grouping. Remember that you may not directly compare two red jugs or two blue jugs.
+\begin{itemize}
+    \item[\textbf{\textit{b.}}] Prove a lower bound of $\Omega(n\lg{n})$ for the number of comparisons that an algorithm solving this problem must make.
+\end{itemize}
+
+\newpage
+\section*{Problem 4}
+\begin{tcolorbox}
+    Exercise 9.3-8 on page 223. (For convenience feel free to assume all integers are distinct.)
+\end{tcolorbox}
+
+\subsection*{9.3-8}
+Let $X[1..,]$ and $Y[1..n]$ be two arrays, each containing $n$ numbers already in sorted order. Give an $O(\lg{n})$-time algorithm to find the median of all $2n$ elements in arrays $X$ and $Y$.
+
+\newpage
+\section*{Problem 5}
+\begin{tcolorbox}
+    Problem 11-4 (a and b only) on page 284.
+\end{tcolorbox}
+
+\subsection*{11-4}
+Let $\mathscr{H}$ be a class of hash functions in which each hash function $h\in \mathscr{H}$ maps the universe $U$ of keys to $\{0, 1, \dots, m - 1\}$. We say that $\mathscr{H}$ is \textbf{\textit{k-universal}} if, for every fixed sequence of $k$ distinct keys $\langle x^{(1)}, x^{(2)}, \dots, x^{(k)} \rangle$ and for any $h$ chosen at random from $\mathscr{H}$, the sequence $\langle h(x^{(1)}), h(x^{(2)}), \dots, h(x^{(k)}) \rangle$ is equally likely to be any of the $m^k$ sequences of length $k$ with elements drawn from $\{0, 1, \dots, m - 1\}$.
+\begin{itemize}
+    \item[\textbf{\textit{a.}}] Show that if the family $\mathscr{H}$ of hash functions is $2$-universal, then it is universal.
+    \item[\textbf{\textit{b.}}] Suppose that the universe $U$ is the set of $n$-tuples of values drawn from $\mathbb{Z}_p = \{0, 1, \dots, p - 1\}$, where $p$ is prime. Consider an element $x = \langle x_0, x_1, \dots, x_{n-1} \rangle \in U$. For any $n$-tuple $a = \langle a_0, a_1, \dots, a_{n-1} \rangle \in U$, define the hash function $h_a$ by
+    \begin{gather*}
+        h_a(x) = \left(\sum_{j=0}^{n-1} a_jx_j\right)\mod p.
+    \end{gather*}
+    Let $\mathscr{H} = \{h_a\}$. Show that $\mathscr{H}$ is universal, but not $2$-universal. (\textit{Hint}: Find a key for which all hash functions in $\mathscr{H}$ produce the same value.)
+\end{itemize}
+
+\end{document}

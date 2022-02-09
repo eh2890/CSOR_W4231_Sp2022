@@ -34,3 +34,5 @@
 \pagenumbering{arabic}
 \pagestyle{fancy}
 \captionsetup[subfigure]{justification=justified}
+
+\DeclareMathOperator\E{E}
