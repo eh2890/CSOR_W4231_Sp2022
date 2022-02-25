@@ -2,6 +2,7 @@
 \usepackage[utf8]{inputenc}
 \usepackage[noend]{algcompatible}
 \usepackage{algorithm}
+\usepackage[noend]{algpseudocode}
 \usepackage{amsfonts}
 \usepackage{amsmath}
 \usepackage{amssymb}
@@ -10,6 +11,7 @@
 \usepackage[justification=centering]{caption}
 \usepackage{changepage}
 \usepackage{color}
+\usepackage[autostyle]{csquotes}
 \usepackage{empheq}
 \usepackage[shortlabels]{enumitem}
 \usepackage{fancyhdr}
@@ -23,7 +25,7 @@
 \usepackage{nameref}
 \usepackage{setspace}
 \usepackage{subcaption}
-\usepackage{tcolorbox}
+\usepackage[breakable]{tcolorbox}
 \usepackage{tikz}
 \usepackage[normalem]{ulem}
 
@@ -35,4 +37,23 @@
 \pagestyle{fancy}
 \captionsetup[subfigure]{justification=justified}
 
+% Math Operators
 \DeclareMathOperator\E{E}
+
+% New Commands
+\newcommand{\Pmod}[1]{\ (\mathrm{mod}\ #1)}
+
+% Algorithm
+\makeatletter
+\renewcommand{\Function}[2]{%
+  \csname ALG@cmd@\ALG@L @Function\endcsname{#1}{#2}%
+  \def\jayden@currentfunction{#1}%
+}
+\newcommand{\funclabel}[1]{%
+  \@bsphack
+  \protected@write\@auxout{}{%
+    \string\newlabel{#1}{{\jayden@currentfunction}{\thepage}}%
+  }%
+  \@esphack
+}
+\makeatother
