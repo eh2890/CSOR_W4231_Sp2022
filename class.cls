@@ -57,3 +57,7 @@
   \@esphack
 }
 \makeatother
+
+% TikZ
+\usetikzlibrary{automata, chains}
+\usetikzlibrary{arrows.meta}
