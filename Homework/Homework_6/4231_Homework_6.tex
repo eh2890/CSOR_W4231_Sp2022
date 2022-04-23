@@ -62,17 +62,34 @@ In this problem, we give pseudocode for three different algorithms. Each on take
 \end{tcolorbox}
 
 \subsection*{24-4}
-\textbf{\textit{Arbitrage}} is the use of discrepancies in currency exchange rates to transform one unit of a currency into more than one unit of the same currency. For example, suppose that $1$ U.S. dollar buys $49$ Indian rupees, $1$ Indian rupee buys $2$ Japanese yen, and $1$ Japanese yen buys $0.0107$ U.S. dollars. Then, by converting currencies, a trader can start with $1$ U.S. dollar and buy $49\times 2 \times 0.0107 = 1.0486$ U.S. dollars, thus turning a profit of $4.86$ percent.
+A \textbf{\textit{scaling}} algorithm solves a problem by initially considering only the highest-order bit of each relevant input value (such as an edge weight). It then refines the initial solution by looking at the two highest-order bits. It progressively looks at more and more high-order bits, refining the solution each time, until it has examined all the bits and computed the correct solution.
 
-Suppose that we are given $n$ currencies $c_1, c_2, \dots, c_n$ and an $n\times n$ table $R$ of exchange rates, such that one unit of currency $c_i$ buys $R[i, j]$ units of currency $c_j$.
+In this problem, we examin an algorithm for computing the shortest paths from a single source by scaling edge weights. We are given a directed graph $G = (V, E)$ with nonnegative integer edge weights $w$. Let $W = \max_{(u, v)\in E}\{w(u, v)\}$. Our goal is to develop an algorithm that runs in $O(E\lg{W})$ time. We assume that all vertices are reachable from the source.
 
+The algorithm uncovers the bits in the binary representation of the edge weights one at a time, from the most significant bit to the least significant bit. Specifically, let $k = \lceil \lg{(W+1)} \rceil $ be the number of bits in the binary representation of $W$, and for $i = 1, 2, \dots, k$, let $w_i(u, v) = \lfloor w(u, v) / 2^{k-i} \rfloor $. That is, $w_i(u, v)$ is the \enquote{scaled-down} version of $w(u, v)$ given by the $i$ most significant bits of $w(u, v)$. (Thus, $w_k(u, v) = w(u, v)$ for all $(u, v)\in E$.) For example, if $k = 5$ and $w(u, v) = 25$, which has the binary representation $\langle 11001 \rangle $, then $w_3(u, v) = \langle 110 \rangle = 6$. As another example with $k = 5$, if $w(u, v) = \langle 00100 \rangle = 4$, then $w_3(u, v) = \langle 001 \rangle = 1$. Let us define $\delta_i(u, v)$ as the shortest-path weight from vertex $u$ to vertex $v$ using weight function $w_i$. Thus, $\delta_k(u, v) = \delta(u, v)$ for all $u, v\in V$. For a given source vertex $s$, the scaling algorithm first computes the shortest-path weights $\delta_1(s, v)$ for all $v\in V$, then computes $\delta_2(s, v)$ for all $v\in V$, and so on, until it computes $\delta_k(s, v)$ for all $v\in V$. We assume throughout that $|E| \geq |V| - 1$, and we shall see that computing $\delta_i$ from $\delta_{i-1}$ takes $O(E)$ time, so that the entire algorithm takes $O(kE) = O(E\lg{W})$ time.
 \begin{enumerate}[\textbf{\textit{\alph*.}}]
-    \item Give an efficient algorithm to determine whether or not there exists a sequence of currencies $\langle c_{i_1}, c_{i_2}, \dots, c_{i_k} \rangle $ such that
+    \item Suppose that for all vertices $v\in V$, we have $\delta(s, v) \leq |E|$. Show that we can compute $\delta(s, v)$ for all $v\in V$ in $O(E)$ time.
+    \item Show that we can compute $\delta_1(s, v)$ for all $v\in V$ in $O(E)$ time.
+\end{enumerate}
+Let us now focus on computing $\delta_i$ from $\delta_{i-1}$.
+\begin{enumerate}[\textbf{\textit{\alph*.}}]
+    \setcounter{enumi}{2}
+    \item Prove that for $i = 2, 3, \dots, k$, we have either $w_i(u, v) = 2w_{i-1}(u, v)$ or $w_i(u, v) = 2w_{i-1}(u, v) + 1$. Then, prove that
     \begin{gather*}
-        R[i_1, i_2]\cdot R[i_2, i_3]\cdots R[i_{k-1}, i_k] \cdot R[i_k, i_1] > 1
+        2\delta_{i-1}(s, v) \leq \delta_i(s, v) \leq 2\delta_{i-1}(s, v) + |V| - 1
     \end{gather*}
-    Analyze the running time of your algorithm.
-    \item Give an efficient algorithm to print out such a sequence if one exists. Analyze the running time of your algorithm.
+    for all $v\in V$.
+    \item Define for $i = 2, 3, \dots, k$ and all $(u, v)\in E$,
+    \begin{gather*}
+        \hat{w}_i(u, v) = w_i(u, v) + 2\delta_{i-1}(s, u) - 2\delta_{i-1}(s, v)
+    \end{gather*}
+    Prove that for $i = 2, 3, \dots, k$ and all $u, v\in V$, the \enquote{reweighted} value $\hat{w}_i(u, v)$ of edge $(u, v)$ is a nonnegative integer.
+    \item Now, define $\hat{\delta}_i(s, v)$ as the shortest-path weight from $s$ to $v$ using the weight function $\hat{w}_i$. Prove that for $i = 2, 3, \dots, k$ and all $v\in V$,
+    \begin{gather*}
+        \delta_i(s, v) = \hat{\delta}_i(s, v) + 2\delta_{i-1}(s, v)
+    \end{gather*}
+    and that $\hat{\delta}_i(s, v) \leq E$.
+    \item Show how to compute $\delta_i(s, v)$ from $\delta_{i-1}(s, v)$ for all $v\in V$ in $O(E)$ time, and conclude that we can compute $\delta(s, v)$ for all $v\in V$ in $O(E\lg{W})$ time.
 \end{enumerate}
 
 \newpage
